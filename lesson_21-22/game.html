@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jumping Game</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+<body>
+    <h1 id="scoreId">score: 0</h1>
+    <img src="https://1000logos.net/wp-content/uploads/2020/09/SpongeBob-SquarePants-Logo-1999.png" alt="" id="logo">
+    <img src="player.png" alt="" id="player">
+    <img src="enmey.png" alt="" id="enmey">
+
+    <script>
+        addEventListener('keydown', checkKey)
+        let player = document.getElementById("player")
+        let enmey = document.getElementById("enmey")
+        let scoreId = document.getElementById("scoreId")
+        let score = 0;
+        let isJumping = false
+        let checkInterval = setInterval(check, 100)
+        let gameOverSound = new Audio("ewts.mp3")
+        let soundJump = new Audio("jump.mp3")
+        let gameOver = false;
+
+        function checkKey(info) {
+            if (info.key === ' ' && !gameOver) {
+                jump()
+            }
+        }
+
+        function jump() {
+            if (isJumping) {
+                return
+            }
+            isJumping = true
+            player.classList.add('jump')
+            setTimeout(removeAnimation, 1000)
+            soundJump.play()
+        }
+
+        function removeAnimation() {
+            player.classList.remove('jump')
+            isJumping = false;
+            score = score + 1
+            scoreId.innerHTML = "score: " + score
+        }
+
+        function check() {
+            if (elementsOverlap(player, enmey)) {
+                clearInterval(checkInterval)
+                gameOverSound.play()
+                gameOver = true;
+                let best = localStorage.getItem("best")
+                if (!best || best < score) {
+                    localStorage.setItem('best', score)
+                    best = score
+                }
+                document.body.innerHTML = `
+                    <p id="GameOverId">Game over!</p>
+                    <p id="result">Your score is: ${score}!</p>
+                    <p id="best">Your best score is: ${best}</p>
+                    <button id="restartBtn" onclick="restartGame()">משחק מחדש</button>
+                `
+            }
+        }
+
+        function elementsOverlap(el1, el2) {
+            const domRect1 = el1.getBoundingClientRect()
+            const domRect2 = el2.getBoundingClientRect()
+
+            return !(
+                domRect1.top > domRect2.bottom ||
+                domRect1.right < domRect2.left ||
+                domRect1.bottom < domRect2.top ||
+                domRect1.left > domRect2.right
+            )
+        }
+
+        function restartGame() {
+            location.reload
+        }
+    </script>
+</body>
+</html>
