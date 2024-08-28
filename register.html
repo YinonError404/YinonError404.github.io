@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="Login_Register.css">
+<title>Sign Up</title>
+</head>
+<body>
+    <img src="logo.png" alt="Logo" class="logo">
+    <div class="container">
+        <h1>הרשמה למשחק</h1>
+        <input type="text" placeholder="הכנס שם משתמש" id="username">
+        <input type="password" name="" id="pass" placeholder="הכנס סיסמא">
+        <button onclick="register()">הירשם</button>
+        <h2>יש לך כבר חשבון?</h2>
+        <button onclick="loadLogin()">מעבר לדף ההתחברות</button>
+    </div>
+<script>
+function register(){ 
+let user = document.getElementById("username").value //משתלטים על תגית אינפוט של השם ולוקחים את הערך שלה 
+let pass = document.getElementById("pass").value//משתלטים על תגית אינפוט של הסיסמא ולוקחים את הערך שלה 
+
+if(user == "" &&pass == ""){
+alert("לא הכנסת שם משתמש וסיסמא ")
+}
+else if(user ==""){
+
+alert("לא הכנסת שם משתמש ")
+}
+else if(pass ==""){
+alert("לא הכנס תסיסמש ")
+}
+let nameValue = localStorage.setItem("userName",user) // מעדכן את המידע בהטבלה 
+let passValue = localStorage.setItem("password",pass) // מעדכן את המידע בהטבלה 
+alert("נרשמת בהצלחה")
+location.href = "login.html" // מעביר את המשתמש לדף התחברות 
+}
+
+function loadLogin(){
+    location.href = "login.html"
+}
+
+
+
+</script>
+
+</body>
+</html>

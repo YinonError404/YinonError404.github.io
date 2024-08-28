@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="Login_Register.css">
+<title>Log In</title>
+</head>
+<body>
+    <img src="logo.png" alt="Logo" class="logo">
+    <div class="container">
+        <h1>התחבר למשחק</h1>
+        <input type="text" placeholder="הכנס את שמך" id="username">
+        <input type="password" name="" id="pass" placeholder="הכנס סיסמא">
+        <button onclick="login()">התחבר</button>
+        <h2>אין לך חשבון?</h2>
+        <button onclick="loadRegister()">מעבר לדף ההרשמה</button>
+    </div>
+<script>
+function login(){ 
+let user = document.getElementById("username").value //משתלטים על תגית אינפוט של השם ולוקחים את הערך שלה 
+let pass = document.getElementById("pass").value//משתלטים על תגית אינפוט של הסיסמא ולוקחים את הערך שלה 
+let nameValue = localStorage.getItem("userName") // שליפת המידע מהטבלה 
+let passValue = localStorage.getItem("password") // שליפת המידע מהטבלה 
+if(nameValue == user && passValue == pass){
+alert("הפרטים נכונים ")
+
+
+location.href = "game.html"
+}
+else {
+alert("הפרטים לא נכונים ")
+}
+
+}
+function loadRegister(){
+    location.href = "register.html"
+}
+
+
+</script>
+</body>
+</html>
